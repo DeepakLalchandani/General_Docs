@@ -1,0 +1,167 @@
+		---> How to deploy Spring application into PCF <---
+
+Step 1 : Create a spring boot application.
+Step 2 : Open terminal or cmd go to path where project has been in created in local.
+Step 3 : Login into PCF using below command :
+			cf login
+		OR you can also use below command :
+			cf login -a https:api.run.pivotal.io
+		-> Now enter email and password for authentication, On succesful it will show you org and development space.
+		-> TO check target use below :
+			cf target
+		-> You can also change org and target
+Step 4 : Now we have to push/deploy our app in PCF so for that use below command :
+			cf push --> it will give error. Hence use below :
+			cf push <application-name> --> it will also give you error that "The app can't mapped to route app-name.cf.apps.io bc route exist in different space."
+		-> TO resolve this issue use below qualified name with route.
+		-> Route should be globally unique.
+			cf push <app-name> --random-route
+		-> Now when you push an app, Cloud Foundry automatically detects an appropriate buildPack.
+		-> A BuildPack is used to compile and prepare your app for launch.
+		-> Above pushing code will fail due to build pack, in order to remove this issue what you need to do is : go to your project and do maven build and in goal
+			write "clean package" and create new fresh jar.
+		-> Once Jar created then since by using above command we have created rand route. Hence in below command we will skip :
+			cf push <app-name> -p target/*.jar    *-> write jar name here.
+			This command will create Java BuildPack and Droplet.
+		-> We will deploy Droplet on server.
+Step 5 : Now check logs & Pick random-route name and replacte with localhost:8080 and your application will give response on browser.
+		-> Now application has been deployed.
+		-> TO check Logs use below :
+			Open a new terminal and goto same directory where is your application and use :
+			cf logs <app-name>
+			and logs will come.
+
+-> To check how many apps are deployed use below :
+	cf apps 	-> Show you all details Like : memroy, url, instance, name, running status.
+-> To check apps url use below :
+	cf routes 	-> Show you all details like : space, host, port, domain, path, apps, service.
+-> The good thing is in PCF you can create multiple rout pointing to the single applications.
+-> To create multiple route use below :
+	cf map-route <app-name> <domain name like cfapps.io> --hostname <app-name>-sufi-101
+-> Now till now we have created 2 route, you can check also :
+	cf apps
+-> You can also check spaces by using below command :
+	cf spaces 
+-> You can also check orgs which are present by using below :
+	cf orgs
+
+		---> How to stop, start and restart application <---
+-> cf stop <app-name>
+-> cf start <app-name>
+-> cf restart <app-name>
+
+		---> Create Application manifest.yml file <---
+-> If you made a small change in application then again you have to deploy by using above steps & that is tidius process.
+	Hence lets create yml file. So that each time it will pick changes from that file.
+		cf create-app-manifest <app-name>
+	- Now goto in eclise workspace & do refresh you will see <app-name>_manifest.yml file.
+	- This file contain info of : app-name, memory, instances, route and stacks.
+-> Now if you will do cf push then it will also give error. Hence to avoid this issue Just rename above file & add jar file location :
+	from cf create-app-manifest <app-name> to manifest.yml
+	Path: target/jarName.jar
+-> Now again hit cf push -> this time it will work.
+
+		---> CF Push, BuildPack, Droplet, Deployment <---		
+-> When we do CF Push - then 3 things happend behind this :
+	1- upload Package
+		: Package is raw code or source code including manifest file.
+	2- Staging - creating of Droplet
+		: Determine right BuildPack
+		: Run then BuildPack to create Droplet
+	3- Deployment
+		: Deployment of droplet into cell.
+-> What is Droplet : it is a self contained unit. 
+	It is a cloud foundry unit of execution. A jar file needs JDK/JRE and configuration to run.
+		Droplet = Package(source code) + BuildPacks
+	The process of creating droplets are known as Staging.
+-> What is Cell : We want to run our application in the cloud and A cell is very similar to virtaul server in the cloud.
+-> From the above step 1 and 2 are very similar.
+-> You can check that how mant droplets are created during stagging and for this use below :
+		cf v3-droplets <app-name>
+-> Till now, if you will see logs, it is downloading lots of buildPack like, Java, Python, Ruby, c# ect but I need only Java build pack then how to do that?
+-> For this we will write below code in manifest.yml file
+	buildpack:
+	-https://github.com/cloudfoundry/java-buildpack.git or you can give your repository url like github or GitLab.
+-> You can also set timeout if your system taking more time to up :
+	timeout: 120
+
+		---> Deploy a web application (war file) using H2 DB <---
+Step 1 : Setting external DB ::
+-> Make sure that package has been added as war in Parent POM.
+	<Package>war</Package>
+-> If you want tomcat server to run then add otherwise you can exclude.
+-> Now create deployment unit by generating war file : Run as -> Maven build.
+-> Now open cf cli and go to same directory where your project has been created.
+-> To check created war file use below command :
+	ls target/warName.war
+-> Next step is to create manifest.yml file or you can also copy from previous application and correct name, route and jar location.
+
+		---> Deploy real web application (war file) using MYSQL DB <---
+-> You can build your package as a war or jar also.
+-> Now you need to make some changes in parent POM :
+	- Add MYSQL connector in POM.
+	- Change H2 DB scope to test.
+-> Add mysql properties like username, password, driver and dialect in application.properties.
+-> To run Junit test cases you need to add properties in src/test/resources application.properties.
+
+Step 2 : Running MYSQL as Docker container on local ::
+-> Make sure that your docker is running.
+-> I need to run mysql in docker so for that go to docker hub and search official image of mysql and type below command :
+	docker run mysql:5.7   -> 5.7 - version
+-> Here we need to set, user and password, database and rootPassword for this use below command :
+	docker run -d -e MYSQL_ROOT_PASSWORD=dummy -e MYSQL_DATABASE = test -e MYSQL_USER=todo -e MYSQL_PASSWORD= dummy -p 3306:3306 mysql:5.7
+	- Container will create and will be running to check running or not use below command :
+		docker container list
+-> Now need to connect MYSQL db and test it. For this download mysql shell. Post that open a new terminal :
+	type mysqlsh 		- to verify.
+-> To connect database command is : 
+	/connect todo(username)@localhost:3306
+	- Now enter password
+	- Congrats -> you are connected to mysql.
+	- Type /sql -> to switch sql mode.
+	- For setting default schema type : use test
+	- Now you can write or execute any query ex select * from table name.
+
+-> you can also use run.pivotal.io ui to run/stop or see logs and for other metrices as well.
+-> By using UI you can also add services like oracle, mysql or MongoDB.
+-> You can also check UI added services in command line by using below :
+	cf services
+
+Step : Now deploy spring app with mysql
+-> for this Just add one line at the bottom of manifest.yml file.
+	services:
+		- database name.
+-> And Now open terminal and use cf push command to deploy app.
+-> But Notice one thing in application.properties I have added only username, url, driver and connector along with password right?
+	then how it is connecting to Real database. It should connecting with Locallly. Let see how? and why?
+-> So the above magic happened due to Spring Auto Reconfiguration and it do below task :
+	- Add's cloud profile.
+	- Exposed cloud foundry properties to app.
+	- Re- writed beans definitions to connect with services which bound to app.
+-> You can also check SPR in logs as well.
+-> To do the manual configuration so that Spring Auto Reconfiguration works according to our customization 
+	then you need to add below two dependencies in Parent Pom.
+	- Spring-cloud-cloudFoundry-connector.
+	- Spring-cloud-spring-services-connector.
+	
+	- Along with this you need to create config class where define DataSource & cloud beans to connect database.
+	- Also mark this config class to @Profile("cloud")
+	@Bean
+	public Cloud cloud(){
+		return new CloudFactory().getCloud();
+	}
+	- Same like above create DataSource Bean.
+-> Now build app to create jar or war and then use push command to deploy app.
+-> app deploy to PCF just test it byv hitting messages.
+
+		---> Deploy Real Full Stack Spring boot React app <---
+
+//Continue to add some more commands and steps
+
+
+
+	
+
+
+
+			
