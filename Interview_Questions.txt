@@ -1,0 +1,90 @@
+1.	Diff  b/w method overloading and method overriding?
+2.	How to change server port number and where?
+3.	Hashset vs hashmap (which one will you use while developing code and why)?
+4.	What is the default bean scope and how and where we can change the scopes?    
+5.	What is interface and its use?
+6.	Fail fast and fail safe difference?
+7.	Which datatype will be preferred to use as a key value in hashmap and why it is good to use?
+8.	wrapper class?
+9.	Why springboot is preferred than spring?
+10.	Dependency injection and AOP?
+11.	Hashmap internal working?
+12.	Hashmap internal collision means and how can we overcome that concurrent hashmap?
+13.	Singleton in springboot concept?
+14.	What is the @Autowired?
+15.	Tell some http codes you know?
+16.	diff b/w put and post?
+17.	What is the @Requestmapping?
+18.	Diff b/w create and prepare statement in jdbc?
+19.	Multithreading concept?
+20.	Synchronize vs asynchronize?
+21.	try catch ?
+22.	Use of final keyword?
+23.	Use of finally ?
+24.	Global level exception class uses?
+25.	@ControllerAdvice and its use?
+26.	Software development lifecycle?
+27.	How to destroy unused beans in ioc container ?
+28.	Throw vs Throws?
+29.	JSP knowledge - depends
+30.	What security you have used in your project (related to springboot)??
+31.	Deployment process in springboot (asking about embedded servers)?
+32.	What are the springboot annotations you have used in your project??
+33.	What is the use of … in javascript?
+34.	Groupby operations in streams?
+35.	From angular how we can pass the object between components?
+36.	Abstract vs interface realtime example?
+37.	Functional interfaces and types( predicate consumer etc and its usecases)?
+38.	How to implement spring security ( oauth / jwt I have mentioned them in resume)?
+39.	Where static/final other variable store in memory?
+40.	Can we connect to multiple databases in spring boot? if yes how??
+41.	Some spring annotations and its use cases?
+42.	What is the Bean life cycle
+43.	Diff between switch and else if ladder?
+44.	How many neasted if loops are preferred in a method? why its not preferred to add more if loops?
+45.	What is serialization?
+46.	What is externalization?
+47.	What is Autoboxing?
+48.	String S1=”abc”, String s2= new String (“abc”) In which memory location S1 and S2 will get store Output of  S1==S2 and S1.equalsS2 ?
+49.	Difference between break and continue statement?
+50.	Thread lifecycle, notify(), notifyAll(), wait(),Sleep() difference?
+51.	What is load factor?
+52.	What all things we do to keep code readable (coding standards)?
+53.	Difference between list and set?
+54.	Difference between Error and Exception?
+55.	What is container in microservices?
+56.	Difference between @ResquestController and @Controller?
+57.	What is use of profile in SpringBoot application? ?
+58.	ConcurrentHashmap cocept, (he given situation : if while iterating over hashmap if we try to modify it then what will happen?) ?
+59.	Arraylist is ordered or unordered (Scenario: One array list a1(1,2,3,4,5) we copied into another arraylist a2, in a2 we added 2 more elements (6,7) what will be output if we print a2)?
+60.	What is Vector and what are advantages of it.?
+61.	Any Java8 concepts (Stream, lambda expression). We can explain all which we know?
+
+-------------------------------------------------
+1.	What are the features of JDK 1.8?
+2.	What is the difference between webservice and API?
+3.	What is functional interface and why it is introduced?
+4.	What is marker interface and usages?
+5.	How do you handle exceptions?
+6.	Different types of http status codes (What is 403)?
+7.	How do you send the exception msg to the front-end response?
+8.	How do you connect to RDBMS?
+9.	How do you fetch the data by using left outer join?
+10.	How do you use the group by?
+11.	Springboot initialization?
+12.	How do you securely connect to the third-party and retrieve the data?
+13.	How do you deploy the build in dev environment and production environment?
+14.	Authentication mechanism for the API?
+15.	Knowledge on Architecture implemented?
+16.	Knowledge on Domain and Experience API architecture?
+17.	Knowledge on Collections?
+18.	Difference between list and set and how do you convert list into set?
+19.	How do you monitor the performance of your API?
+
+--------------------------------------------------
+Q1- Use of try catch, throw, throws.
+Q2- What is the difference between Anonymous class & lambda?
+Q3- Functional interface?
+Q4- How will you add JWT in Rest API?
+Q5- Difference between Application server & web server?
+Q6- How will you do Custom cleaning?  
