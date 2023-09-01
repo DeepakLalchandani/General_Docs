@@ -1,11 +1,11 @@
 		---> Download and install docker <---
+Question : What is docker?
+Answer : Docker is a software platform that allows you to build, test, and deploy applications quickly.
+OR You can see Docker as a way to pack you code in a nice little container that contains everything it needs to run it; it containerizes your code. 
+The benefits are numerous: containers are scalable, cost-effective and are isolated from each other.
+You have to download docker based on your Operating Systems. Once downloaded open terminal or cmd and type below command to verify either it installed correctly or not.
 docker --version -> to check docker version.
--> To run docker images in container. it also give logs
-	docker run -p port:port image name:Release verison
-->  To run docker images in container. It will run in isolate mode.
-	docker run -d -p port:port image name:Release verison
--> Images is a static and we have to run it in containers.
--> Container is dynamic, once we gave command to run images then image runs in container.
+
 -> To check all images :
 	docker images
 -> To check list of container :
@@ -19,7 +19,7 @@ docker --version -> to check docker version.
 	docker container logs <container Id>
 -> To remove container use below :
 	docker container rm <container Id>
--> To remove all stoped container use below :
+-> To remove all stopped container use below :
 	docker container prune
 -> To check container information that when created, port images, status, logs, port binding use  below :
 	docker container inspect <container Id>
@@ -28,8 +28,15 @@ docker --version -> to check docker version.
 	docker image history <repository name> : release version
 -> To remove image, first stop and remove container then remove image.
 	docker image remove <container Id>
+-> To run docker images in container.
+	docker run -p port:port image name:Release version (you have to specify port number on which you want to run)
+->  To run docker images in container. It will run in isolate mode.
+	docker run -d -p port:port image name:Release version
+-> Images is a static and we have to run it in containers.
+-> Container is dynamic, once we gave command to run images then image runs in container.
 		
 		---> How does docker work <---
+Docker allow developers to package applications into containers that combine application source code with all the dependencies and libraries needed to run the code in any environment.
 -> When you install docker in desktop. It install two things 
 	1- Docker client
 	2- Docker Daemon
@@ -37,31 +44,34 @@ docker --version -> to check docker version.
 	OR you can say that docker daemon manages below three things :
 	1- Containers
 	2- Local Images
-	3- Image registry ex : nginx, mysql, eureka, your appl.
+	3- Image registry ex : nginx, mysql, eureka, your applications.
 -> Daemon is also responsible to create Images based in the input what we gave and pushed it into image registry.
 
 		---> How to create docker images <---
 -> Create deployable units :
-	For this Just opem Parent POM and check <Packaging>Jar</Packaging>. It would be anything like Jar or war.
-	First create a Jar.
+	To do this Just open Parent POM and check <Packaging>Jar</Packaging>. It would be anything like Jar or war.
+	First create a Jar or war.
 -> To create Jar right click on Project Run as -> Maven build -> Goal : package
 	Build will run and at the end it will create a jar file copy url and check location for jar.
--> Now open Terminal or GitBash go to Jar folder and type belwo command to run jar :
+-> Now open Terminal or GitBash go to Jar location or folder and type below command to run jar :
 	Java -jar <Jar name>
-	Now copy local url and hit on browser. you will see response.
+	Now copy local host url and hit on browser. you will see response based on the controller or Rest Api's(if you returned something using GetMapping method.)
 	
-	---> Manually creating a new docker image
+	---> Manually creating a new docker image <---
 	1- Open GitBash type below command
 		docker run -dit openjdk:8-jdk-alpine  --> when you want to create base image then use alpine.
 	Now container has been created. 
 	2- Now you have to copy jar in to this container. For this use below command :
-		docker container cp target/jar name <Container Id or name>:/temp		cp - copy.
-	Now jar has been copied in container. How would you know that it has been copied?
-	3- Now to verify use below command :
-		docker container exec <container Id or name> ls /temp
-	4- Now by using above container we will create image. use below command :
+		docker container cp target/jar name <Container Id or name>:/temp		(cp means -> copy)
+		jar has been copied in container. 
+		Question : How would you know that it has been copied?
+	3- To verify that jar has been copied in container use below command :
+		docker container exec <container Id or name> ls /temp			(exec means -> execute)
+	4- Now container has been created with desired jar. Next task is to create image using this container. 
+		To do this use below command :
 		docker container commit <container Id or name> <Give image name here>
-	5- What do I want to do with this Image ? I want to run Jar into this image. use below command :
+		Question : Now image has been created inside the container but What do I want to do with this image?
+	5- Well, I want to run Jar into this image. For use below command :
 		docker container commit --change='CMD ["Java","-Jar", "/temp/jar name"]' <container name with version 2> <your image name give as above>
 	6- Now images has been created, you can check by using below command :
 		docker images
@@ -71,12 +81,12 @@ docker --version -> to check docker version.
 		docker logs <container Id>
 	9- You can share this image to anyone and they can run easily in their machine if they have docker.
 
-	---> Automate creating image process
--> Above process is very tidius bc if you have to create 1000 then what?
+	---> Automate creating image process <---
+We can create docker image manually for our application but think about what if you project has hundreds micro-services then it would become very tedious task and also difficult.
 -> That's why docker file comes into picture.
 	Docker file : this is a file where we are defining that how images will create.
--> There two thing which we need to add in our project.
-	1- Add docker plugin in Parent POM.
+-> There are two thing which we need to add in our project.
+	1- Add docker plug-in in Parent POM.
 	2- Add Docker file inside target folder.
 -> Now open Docker file and add below information :
 	FROM openjdk:8-jdk-alpine
@@ -84,12 +94,23 @@ docker --version -> to check docker version.
 	EXPOSE 5000
 	ADD target/*.jar app.jar
 	ENTRYPOINT ["sh", "-c", "java -jar /app.jar"]
+	
+	* temp -> represent storage where you want to store.
+	* 5000 -> represent port number on which you want to run your service.
+	
 -> To build image follow below steps :
 -> To Build image right click on Project Run as -> Maven build -> Goal : package
-	Build will run and at the end it will see it will create image and tag file.
+	Build will run and at the end it will create image and tag file.
 -> Now open Terminal or GitBash and simply run this image.
 	docker run -d -p 5000:5000 <image name:tag> or <container Id>
 -> You can also check container logs.
--> The last step is to push your images in docker repository or where you want.
--> docker login --enter user name and password of dockerhub.
+
+	---> Push your image into repository <---
+The last step is to push your images in docker repository or wherever you want.
+if you want to push your image in docker repository then create account in docker hub and login.
+-> Open CMD or terminal and do login.
+-> docker login --enter user name and password of docker hub.
 -> docker push <give> image name here.
+
+	---> END <---
+Let me know if something I missed here or I did some mistake somewhere.
