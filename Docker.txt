@@ -116,4 +116,6 @@ if you want to push your image in docker repository then create account in docke
 -> docker push <give> image name here.
 
 	---> END <---
-Let me know if something I missed here or I did some mistake somewhere.
+Let me know if something I missed here or I made some mistake.
+I will add more about docker and kubernates. So stay tunned.
+Thank you.
