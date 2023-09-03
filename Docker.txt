@@ -85,6 +85,9 @@ Docker allow developers to package applications into containers that combine app
 We can create docker image manually for our application but think about what if you project has hundreds micro-services then it would become very tedious task and also difficult.
 -> That's why docker file comes into picture.
 	Docker file : this is a file where we are defining that how images will create.
+Question : What is docker file and why do we use it?
+Answer : Dockerfile is a text document containing all the commands the user requires to call on the command line to assemble an image. With the help of a Dockerfile, 
+	users can create an automated build that executes several command-line instructions in succession.
 -> There are two thing which we need to add in our project.
 	1- Add docker plug-in in Parent POM.
 	2- Add Docker file inside target folder.
