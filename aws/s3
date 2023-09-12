@@ -1,1 +1,26 @@
-S3 stands for simple service storage.
+
+Question : What is the Storage?
+Answer : The place where you can store your data for example memory card, hard disk.
+	Now storage are divided in 5 parts.
+	1- Simple storage service(S3).
+		- Object level storage, you can access from anywhere.
+	2- Elastic file system (EFS).
+		- Only used for linux based system.
+	3- Elastic block storage(EBS).
+		- It can be accessible only from EC2.
+		- Server usages storage from EBS only.
+	4- Glacier.
+		- Now Glacier become part of S3.
+		- Reliable, durable and highly available
+	5- Snowball.
+		- Portal storage.
+		- Use for migration data.
+		
+Question : What do you mean by Block storage and Object storage?
+Answer : Let's check one by one in details :
+	Block Storage :-
+	
+	
+
+
+
