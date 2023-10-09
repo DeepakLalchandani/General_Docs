@@ -5,14 +5,14 @@ Answer : The place where you can store your data for example memory card, hard d
 	1- Simple storage service(S3).
 		- Object level storage, you can access from anywhere.
 	2- Elastic file system (EFS).
-		- Only used for linux based system.
+		- Only used for Linux based system.
 	3- Elastic block storage(EBS).
 		- It can be accessible only from EC2.
 		- Server usages storage from EBS only.
 	4- Glacier.
 		- Now Glacier become part of S3.
 		- Reliable, durable and highly available
-	5- Snowball.
+	5- SnowBall.
 		- Portal storage.
 		- Use for migration data.
 		
