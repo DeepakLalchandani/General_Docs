@@ -3,6 +3,8 @@ Find below questions that asked in interview :
 
 Programming questions are :
 1: find median of two sorted arrays.
+Answer : Solutions added in below commit :
+https://github.com/Sufiyan33/Data-Structure/blob/main/DataStructure/src/arrays/ProgramToFindMedianOFTwoArrays.java
 2: water trailing problem.
 3: find 3rd smallest number using Java 8
 
