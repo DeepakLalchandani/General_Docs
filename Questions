@@ -1,0 +1,17 @@
+Hi,
+Find below questions that asked in interview :
+
+Programming questions are :
+1: find median of two sorted arrays.
+2: water trailing problem.
+3: find 3rd smallest number using Java 8
+
+Theoretically question:
+1: how to achieve concurrency in your application.
+2: what are the design patterns of Microservices.
+3: how to implement api gateway.
+4: what is the service mesh.
+5 : asked many questions from spring boot annotations.
+6: what is deadlock conditions and how to avoid.
+7: what is memory leaks in java.
+8: serialisation etc
