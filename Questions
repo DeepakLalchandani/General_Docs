@@ -7,6 +7,7 @@ Answer : Solutions added in below commit :
 https://github.com/Sufiyan33/Data-Structure/blob/main/DataStructure/src/arrays/ProgramToFindMedianOFTwoArrays.java
 Also added my solution in leetCode :
 https://leetcode.com/problems/median-of-two-sorted-arrays/solutions/3781532/java-easy-solution-100-work/
+
 2: water trailing problem.
 3: find 3rd smallest number using Java 8
 Answer : Please check below code :
@@ -22,6 +23,24 @@ https://github.com/Sufiyan33/Java-8-Practice-Program/blob/master/Java8Practice/s
 Theoretically question:
 1: how to achieve concurrency in your application.
 2: what are the design patterns of Microservices.
+Answer : 
+------------------------------------------
+Micro-services design pattern :
+------------------------------------------
+Listing here, some popular micro-services design pattern :
+1 : Service Registry pattern
+2 : circuit breaker pattern
+3 : API Gateway pattern
+4 : Event driven architecture
+5 : Database design pattern (1- database per service 2- shared database)
+6 : CQRS
+7 : Saga Pattern (1- Orchestrater, 2- Choreography)
+8 : Two phase commit
+9 : Externalized configuration
+10 : Backend for frontend
+11 : Bulkhead pattern
+12 : Composite etc
+
 3: how to implement api gateway.
 4: what is the service mesh.
 5 : asked many questions from spring boot annotations.
