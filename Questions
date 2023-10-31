@@ -9,6 +9,15 @@ Also added my solution in leetCode :
 https://leetcode.com/problems/median-of-two-sorted-arrays/solutions/3781532/java-easy-solution-100-work/
 2: water trailing problem.
 3: find 3rd smallest number using Java 8
+Answer : Please check below code :
+  List<Integer> lis = Arrays.asList(12, 34, 53, 1, 3, 5, 6, 51, 64);
+		lis.stream().sorted(Comparator.naturalOrder()).skip(2).findFirst().ifPresent(System.out::println);
+
+		int[] arr = { 2, 2, 4, 12, 32, 21, 41 };
+		Arrays.stream(arr).boxed().distinct().sorted(Comparator.naturalOrder()).skip(2).findFirst()
+				.ifPresent(System.out::println);
+-> you can also check below for various ways to solve question :
+https://github.com/Sufiyan33/Java-8-Practice-Program/blob/master/Java8Practice/src/interview/SecondSmallestNumber.java#L27
 
 Theoretically question:
 1: how to achieve concurrency in your application.
