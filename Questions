@@ -42,6 +42,58 @@ Listing here, some popular micro-services design pattern :
 12 : Composite etc
 
 3: how to implement api gateway.
+------------------------------------------
+Implement api-gateway :
+------------------------------------------
+-> API- Gateway is main or single entry point for your application.
+-> All the request coming from the user will not go directly to specific service instead of this all request will hit api gateway and it's api
+	Gateway responsibility to do route to specific service and get back the result.
+-> Api - gateway is also reposible to handle below things :
+	- cache
+	- authentication & authorization
+	- Routing
+	- Logging
+	- Monitoring
+	- Request handling and response mapping etc.
+
+-> To implement ApiGateway :
+1 : Create a service name as api Gateway.
+2 : Add Eureka discovery cleint  dependency.	
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+3 : Add gateway dependency.
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+4 : Add @EnableEurekaClient in main class where you have written main method. 
+5 : Add below prop for gateway in application.yml or application.properties :
+	cloud:
+		gateway:
+		   routes:
+			- id: Your-applcation-name
+			  uri: lb:/Your-applcation-name
+			  predicates: 
+			   - Path=/endPointName/**
+			- id: Your-applcation-name
+			  uri: lb:/Your-applcation-name
+			  predicates: 
+			   - Path=/endPointName/**
+
+6 : Now you need to register api-gateway to service registery hence add below properties :
+	eureka:
+		client:
+			registry-with-eureka: true
+			fetch-registry: true
+			service-url:
+				default-zone: http://localhost:8761/eureka/
+		instance:
+			hostname: localhost
+			
+7 : If you want to you can add hystrix or Resilience4j dependencies.
+
 4: what is the service mesh.
 5 : asked many questions from spring boot annotations.
 6: what is deadlock conditions and how to avoid.
